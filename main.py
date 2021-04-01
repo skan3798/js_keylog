@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, make_responnse, render_template
+from flask import Flask, render_template, request, make_response, jsonify
 import json
 from json import JSONEncoder
 
@@ -32,25 +32,23 @@ def hello():
 
 @app.route('/js_keylog', methods=['POST'])
 def addLog():
-  # data = request.json
-  # #requiredFields = ['time','key-down','key']
-  # #check that required fields are in the post, otherwise bad request
+  data = json.loads(request.data)
 
-  # time = data['time']
-  # key_up = data['key-up']
-  # key_pressed = data['key']
+  for key in range(len(data)):
+    print(data[key])
+    time = data[key]['time']
+    key_down = data[key]['key-down']
+    key_pressed = data[key]['key']
 
-  # k = Key(time,key_up,key_pressed)
+    k = Key(time,key_down,key_pressed)
+    keylog.append(k)
 
-  # keys.append(k)
-
-  # return k.toJSON(), 200
-
-  # return data.toJSON(), 200
-  return render_template('js_keylog.html')
+  return make_response(jsonify({'response': 'Success', 'code':200}), 200)
 
 @app.route('/js_keylog', methods=['GET'])
 def showKeylog():
 
   return render_template('js_keylog.html')
 
+if __name__ == "__main__":
+  app.run()

