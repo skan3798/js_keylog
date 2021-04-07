@@ -16,7 +16,7 @@ class Key:
 #start flask app
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/js_test')
 def hello():
     return render_template('index.html')
 
