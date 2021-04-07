@@ -46,6 +46,8 @@ def showKeylog():
   for k in range(len(keylog)):
     res[k] = keylog[k].toJSON()
     print(res[k])
+    with open("keylog.txt","a") as f:
+      f.write(res[k])
   return res
 
 if __name__ == "__main__":
