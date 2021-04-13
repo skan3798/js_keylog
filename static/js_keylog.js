@@ -29,7 +29,7 @@ function showKeyTable(keys){
       '<tr><td>'
       + k.time
       +'</td><td>'
-      + k.key_up
+      + k.key_down
       +'</td><td>'
       + k.key
       +'</td></tr>'

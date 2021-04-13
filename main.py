@@ -5,9 +5,9 @@ from json import JSONEncoder
 keylog = []
 
 class Key:
-  def __init__(self, time, key_up, key):
+  def __init__(self, time, key_down, key):
     self.time = time
-    self.key_up = key_up
+    self.key_down = key_down
     self.key = key
 
   def toJSON(self):
@@ -48,6 +48,7 @@ def showKeylog():
     print(res[k])
     with open("keylog.txt","a") as f:
       f.write(res[k])
+      f.write("\n")
   return res
 
 if __name__ == "__main__":
