@@ -5,7 +5,8 @@ from json import JSONEncoder
 keylog = []
 
 class Key:
-  def __init__(self, time, key_down, key):
+  def __init__(self, user, time, key_down, key):
+    self.user = user
     self.time = time
     self.key_down = key_down
     self.key = key
@@ -26,11 +27,12 @@ def addLog():
 
   for key in range(len(data)):
     print(data[key])
+    user = data[key]['user']
     time = data[key]['time']
     key_down = data[key]['key-down']
     key_pressed = data[key]['key']
 
-    k = Key(time,key_down,key_pressed)
+    k = Key(user,time,key_down,key_pressed)
     keylog.append(k)
 
   return make_response(jsonify({'response': 'Success', 'code':200}), 200)

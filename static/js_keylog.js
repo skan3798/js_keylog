@@ -16,17 +16,17 @@ function showKeys() {
     success: showKeyTable,
     fail: console.log("FAILED")
   });
-  console.log("help");
 }
 
 function showKeyTable(keys){
   $('#keylogView > table > tbody').empty();
-  console.log("hello");
 
   for (const [key,value] of Object.entries(keys)){
     var k = JSON.parse(value);
     $('#keylogView > table > tbody').append(
       '<tr><td>'
+      + k.user
+      +'</td><td>'
       + k.time
       +'</td><td>'
       + k.key_down

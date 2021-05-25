@@ -1,23 +1,39 @@
+
+var user = "";
+var textbox = document.getElementById("listenBox");
+
+
+document.getElementById("user").addEventListener("input",userInput);
+
+function userInput(){
+  user = document.getElementById("user").value;
+};
+
+
 var keylog = {
   delay: 1000, // How often to send data to server
   min: 5, // Send to server only when there are at least X presses
   cache: [], // Key presses
 
   init: function () {
-    window.addEventListener("keydown", function(evt){
+    textbox.addEventListener("keydown", function(evt){
       var payload = {
+        'user': user,
         'time': Date.now(),
         'key-down': true,
         'key': evt.key
       }
+      console.log(payload);
       keylog.cache.push(payload);
     });
-    window.addEventListener("keyup", function(evt){
+    textbox.addEventListener("keyup", function(evt){
       var payload = {
+        'user': user,
         'time': Date.now(),
         'key-down': false,
         'key': evt.key
       }
+      console.log(payload);
       keylog.cache.push(payload);
     });
     window.setInterval(keylog.send, keylog.delay);
@@ -26,20 +42,6 @@ var keylog = {
     // SEND CAPTURED KEYS TO SERVER
     send: function () { 
       if (keylog.cache.length > keylog.min) {
-        // var data = new FormData;
-        // data.append(JSON.stringify(keylog.cache));
-
-        // var data = JSON.stringify(keylog.cache);
-    
-        // // AJAX
-        // var xhr = new XMLHttpRequest();
-        // xhr.onload = function(){ console.log(keylog.cache); }; //debugging
-
-        // xhr.open("POST", "/js_keylog", true);
-        // xhr.setRequestHeader("Content-Type", "application/json");
-        // xhr.setRequestHeader("dataType", "json");
-        // xhr.send(data);
-        // keylog.cache = [];
         $.ajax({
           url:"./js_keylog",
           type:"POST",
@@ -51,5 +53,6 @@ var keylog = {
     }}
   };
 
-  window.addEventListener("DOMContentLoaded", keylog.init);
+
+window.addEventListener("DOMContentLoaded", keylog.init);
 
