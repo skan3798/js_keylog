@@ -1,9 +1,16 @@
-python3 -m venv /path/to/new/virtual/env.
+# Setup
+**Create Virtual Environment:**
 
-pip install requirements.txt
+`python3 -m venv env`
 
-source env/bin/activate
+`source env/bin/activate`
 
-python3 main.py
+**Install Requirements.txt**
 
-<ip>/js_test
+`pip install requirements.txt`
+
+# Run Keylogger
+`python3 main.py`
+
+# Frontend
+`<ip>/js_test`
