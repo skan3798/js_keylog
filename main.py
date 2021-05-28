@@ -17,7 +17,7 @@ class Key:
 #start flask app
 app = Flask(__name__)
 
-@app.route('/js_test')
+@app.route('/')
 def hello():
     return render_template('index.html')
 
@@ -54,4 +54,5 @@ def showKeylog():
   return res
 
 if __name__ == "__main__":
-  app.run(debug=True)
+  app.run(port=int("6060"), debug=True)
+  #app.run(debug=True)
