@@ -27,6 +27,8 @@ function showKeyTable(keys){
       '<tr><td>'
       + k.user
       +'</td><td>'
+      + k.session
+      +'</td><td>'
       + k.time
       +'</td><td>'
       + k.key_down
